@@ -1,0 +1,49 @@
+Step 1:
+	Add h2 database dependency in pom.xml
+		<!-- H2 Database Dependency -->
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>1.4.191</version>
+		</dependency>
+	and Spring JDBC and Transaction(tx) dependency to the pom.xml
+
+Step 2:
+	Add a "dataSource" for h2 database in "applicationContext.xml"
+		<bean id="dataSource"
+			class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+			<property name="driverClassName" value="org.h2.Driver" />
+			<property name="url" value="jdbc:h2:tcp://localhost/~/test" /> <!--Server Version-->
+			<property name="username" value="sa" />
+			<property name="password" value="" />
+		</bean>
+
+Step 3:
+	Add the script file to applicationContext.xml, to run automatically when application starts
+		<jdbc:initialize-database data-source="dataSource">
+			<jdbc:script location="classpath:employees_table.sql" />
+		</jdbc:initialize-database>
+
+Step 4:
+	Open "Maven Dependencies" and find h2-1.4.191.jar, select and right click and select the option "run as" --> "java application"
+	and select "console" option from the list.
+	Note:
+		It will open a page in browser with "http://127.0.1.1:8082/login.jsp?jsessionid=0206e1b7f33fe30fcd3aa831644a4dc8" this link for login.
+
+Step 5:
+	In the login page "Saved Settings" drop down menu, select "Generic H2 (Server) option",then automatically the "JDBC URL" change to "jdbc:h2:tcp://localhost/~/test".
+
+Step 6:
+	Click Connect.
+
+Step 7:
+	Open the "Main.java" to run the application.
+
+Step 8:
+	After login just check the table will create and will insert data from "employees_table.sql" script file.
+
+
+Note : For older version H2 Database go to this link
+	http://bitbybitblog.com/hsqldb-quick-setup/
+	
+
